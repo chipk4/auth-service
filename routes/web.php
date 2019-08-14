@@ -14,3 +14,19 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['prefix' => 'auth'], function() use ($router) {
+    $router->post('/register', 'AuthController@register');
+    $router->post('/login', 'AuthController@login');
+});
+
+//use custom guard
+$router->group(['prefix' => 'user'], function() use ($router) {
+    $router->get('/{id:[0-9]+}', function () {
+        return 'get user'; // return user entity
+    });
+});
+
+$router->group(['prefix' => 'analytic'], function () use ($router) {
+    //track action
+});

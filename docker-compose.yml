@@ -11,7 +11,7 @@ services:
   auth-backend:
     build: .
     volumes:
-#       - /www/sites/socialtech:/app uncomment this line if you need local files share
+       - /www/sites/socialtech:/app #uncomment this line if you need local files share
 #       - ./:/app/:cached # uncomment this line if you need local files share
 
   auth-worker:

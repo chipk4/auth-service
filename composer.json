@@ -4,8 +4,9 @@
   "type": "project",
   "require": {
     "php": "^7.1",
-    "socialtechio/slow-storage-emulator": "*",
-    "laravel/lumen-framework": "5.8.*"
+    "laravel/lumen-framework": "5.8.*",
+    "league/flysystem": "^1.1@dev",
+    "socialtechio/slow-storage-emulator": "*"
   },
   "repositories": [
     {
