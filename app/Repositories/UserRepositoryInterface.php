@@ -14,16 +14,16 @@ interface UserRepositoryInterface
      * @param string $nickName
      * @return UserContract
      */
-    public function getByNickName(string $nickName): UserContract;
+    public function getProfileByNickName(string $nickName): UserContract;
 
     /**
      * @param UserContract $user
      */
-    public function save(UserContract $user): void;
+    public function saveProfile(UserContract $user): void;
 
     /**
      * @param string $nickName
      * @return UserContract|null
      */
-    public function searchByNickname(string $nickName): ?UserContract;
+    public function searchProfileByNickname(string $nickName): ?UserContract;
 }

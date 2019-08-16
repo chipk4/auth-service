@@ -24,4 +24,16 @@ class AuthValidator
             'password'   => 'required|min:6'
         ]);
     }
+
+    /**
+     * @param array $additionalRules
+     * @return array
+     */
+    public function getUserAuthRules(array $additionalRules = [])
+    {
+        return array_merge($additionalRules, [
+            'nickName' => 'required',
+            'password' => 'required|min:6'
+        ]);
+    }
 }

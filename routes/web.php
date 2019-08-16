@@ -21,7 +21,7 @@ $router->group(['prefix' => 'auth'], function() use ($router) {
 });
 
 //use custom guard
-$router->group(['prefix' => 'user'], function() use ($router) {
+$router->group(['prefix' => 'user', 'middleware' => 'auth'], function() use ($router) {
     $router->get('/{id:[0-9]+}', function () {
         return 'get user'; // return user entity
     });
