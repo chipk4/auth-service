@@ -1,8 +1,27 @@
 #!/usr/bin/env php
 <?php
 
+require __DIR__.'/../bootstrap/app.php';
+
+use Bschmitt\Amqp\Facades\Amqp;
+
+$app->run();
+
+const STORAGE_FILE_PATH = __DIR__ . '/../storage/analytics_data';
+
+//Here we need to write worker app with nice validations, with redilivery and so on
+//run it under supervisor and workers config ets
 while (true)
 {
-    echo "hello!\n";
+    Amqp::consume('tracking_service', function ($message, $resolver) {
+
+        $s = new \SocialTech\SlowStorage();
+        $s->append(STORAGE_FILE_PATH, $message->body);
+
+        $resolver->acknowledge($message);
+
+        $resolver->stopWhenProcessed();
+
+    });
     sleep(5);
 }

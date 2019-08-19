@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Bschmitt\Amqp\Facades\Amqp;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
@@ -13,9 +15,11 @@ class AnalyticsController extends BaseController
 {
     public function trackAction(Request $request)
     {
-        var_dump($request->session()->getId());
-//        app('redis')->set('test', 'qqq');
-//        TrackUserBehaviorJob::dispatch()->onQueue('tracking_service');
-//        dispatch(new TrackUserBehaviorJob())->onQueue('tracking_service');
+        Amqp::publish('', json_encode([
+            'id' => rand(),
+            'id_user' => '1',
+            'source_label' => 'source_test',
+            'date_created' => Carbon::now()
+            ]), ['queue' => 'tracking_service']);
     }
 }

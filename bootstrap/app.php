@@ -23,6 +23,7 @@ $app = new Laravel\Lumen\Application(
 
  $app->configure('filesystems');
  $app->configure('database');
+ $app->configure('amqp');
  $app->withFacades();
 
 // $app->withEloquent();
@@ -89,8 +90,8 @@ $app->singleton('session.store', function () use ($app) {
 
 // $app->register(App\Providers\AppServiceProvider::class);
  $app->register(App\Providers\AuthServiceProvider::class);
- $app->register(VladimirYuldashev\LaravelQueueRabbitMQ\LaravelQueueRabbitMQServiceProvider::class);
  $app->register(Illuminate\Redis\RedisServiceProvider::class);
+ $app->register(Bschmitt\Amqp\LumenServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*

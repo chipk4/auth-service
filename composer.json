@@ -9,6 +9,7 @@
     "illuminate/session":"5.8.*",
     "laravel/lumen-framework": "5.8.*",
     "league/flysystem": "^1.1@dev",
+    "bschmitt/laravel-amqp":"2.0.7",
     "socialtechio/slow-storage-emulator": "*"
   },
   "repositories": [
