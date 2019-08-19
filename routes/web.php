@@ -12,7 +12,7 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    return "This is a test task for socialtech";
 });
 
 $router->group(['prefix' => 'auth'], function() use ($router) {
@@ -22,7 +22,7 @@ $router->group(['prefix' => 'auth'], function() use ($router) {
 
 //use custom guard
 $router->group(['prefix' => 'user', 'middleware' => 'auth:token'], function() use ($router) {
-    $router->get('/{id:[0-9]+}', 'ExampleController@testUser');
+    $router->get('/{id:[a-zA-Z]+}', 'ExampleController@testUser');
 });
 
 $router->group(['prefix' => 'analytic', 'middleware' => 'session'], function () use ($router) {

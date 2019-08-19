@@ -11,6 +11,11 @@ interface UserContract
     /**
      * @return string
      */
+    public function getId(): string;
+
+    /**
+     * @return string
+     */
     public function getNickName(): string;
 
     /**

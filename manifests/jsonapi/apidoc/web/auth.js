@@ -21,7 +21,7 @@
  *   "data": {
  *     "type": "login-by-nickname",
  *     "attributes": {
- *       "nickname": "test_nick",
+ *       "nickName": "test_nick",
  *       "password": "example_password"
  *     }
  *   }
@@ -110,15 +110,16 @@
  */
 
 /**
- * @api {get} /analytic/track?api_key=asdfasdf34wesdv Send analytics data
+ * @api {get} /analytic/track?api_key=asdfasdf34wesdv&source_point=test-source Send analytics data
  *
  * @apiVersion 0.1.1
  * @apiGroup Analytic
  * @apiName TrackUserData
  *
- * @apiUse RequestHeaders
+ * @apiUse RequestHeadersOptional
  *
  * @apiParam {String} [api_key] User API Key for identification
+ * @apiParam {String} source_point User source point that he visited
  *
  * @apiSuccessExample {json} TrackUserData-Example:
  * HTTP/1.1 200 OK

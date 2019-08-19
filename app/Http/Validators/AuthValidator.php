@@ -17,11 +17,11 @@ class AuthValidator
     public function getUserRegisterRules(array $additionalRules = [])
     {
         return array_merge($additionalRules, [
-            'firstName' => 'required',
-            'lastName'  => 'required',
-            'nickName'  => 'required',
-            'age'        => 'required|numeric',
-            'password'   => 'required|min:6'
+            'data.attributes.firstName' => 'required',
+            'data.attributes.lastName'  => 'required',
+            'data.attributes.nickName'  => 'required',
+            'data.attributes.age'        => 'required|numeric',
+            'data.attributes.password'   => 'required|min:6'
         ]);
     }
 
@@ -32,8 +32,8 @@ class AuthValidator
     public function getUserAuthRules(array $additionalRules = [])
     {
         return array_merge($additionalRules, [
-            'nickName' => 'required',
-            'password' => 'required|min:6'
+            'data.attributes.nickName' => 'required',
+            'data.attributes.password' => 'required|min:6'
         ]);
     }
 }

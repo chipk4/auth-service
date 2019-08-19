@@ -123,6 +123,14 @@ class UserModel implements UserContract, \JsonSerializable
     }
 
     /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return md5($this->getNickName());
+    }
+
+    /**
      * Specify data which should be serialized to JSON
      * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
      */

@@ -16,33 +16,39 @@ class TokenToUserProvider implements UserProvider
     private $userRepository;
     private $cacheService;
 
-    public function __construct (UserModel $user) {
+    public function __construct(UserModel $user)
+    {
         $this->user = $user;
         $this->userRepository = new UserFileRepository();
         $this->cacheService = app('redis');
     }
 
-    public function retrieveById ($identifier) {
+    public function retrieveById($identifier)
+    {
         //implement return by id
     }
 
-    public function retrieveByToken ($identifier, $token) {
+    public function retrieveByToken($identifier, $token)
+    {
         $user = $this->cacheService->hmget('users:profiles:' . $token, ['id']);
         $userId = array_shift($user);
-        $user = $this->userRepository->searchProfileByUserHash($userId);
+        $user = $this->userRepository->searchProfileById($userId);
 
         return $token && $user ? $user : null;
     }
 
-    public function updateRememberToken (Authenticatable $user, $token) {
+    public function updateRememberToken(Authenticatable $user, $token)
+    {
         // update via remember token not necessary
     }
 
-    public function retrieveByCredentials (array $credentials) {
+    public function retrieveByCredentials(array $credentials)
+    {
         // need to implement
     }
 
-    public function validateCredentials (Authenticatable $user, array $credentials) {
+    public function validateCredentials(Authenticatable $user, array $credentials)
+    {
         $plain = $credentials['password'];
 
         return app('hash')->check($plain, $user->getAuthPassword());

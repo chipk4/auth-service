@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Response\Schemas\Api\User\AuthSchema;
+use App\Http\Validators\AnalyticsValidation;
 use Bschmitt\Amqp\Facades\Amqp;
 use Carbon\Carbon;
+use Illuminate\Auth\GenericUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 /**
@@ -13,13 +18,39 @@ use Laravel\Lumen\Routing\Controller as BaseController;
  */
 class AnalyticsController extends BaseController
 {
+    protected $validationRules;
+
+    /**
+     * AnalyticsController constructor.
+     */
+    public function __construct()
+    {
+        $this->validationRules = new AnalyticsValidation();
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function trackAction(Request $request)
     {
+        var_dump('test');
+        $userValidatedData = $this->validate($request, $this->validationRules->getPageTrackRules());
+        $sourcePoint = Arr::get($userValidatedData, 'source_point');
+        $apiKey = $userValidatedData['api_key'] ?? '';
+        $user = Auth::retrieveByToken('', $apiKey);
+        if (!$user) {
+            $user = new GenericUser([
+                'id' => $request->session()->getId()
+            ]);
+        }
+        //todo:: use event manager, and do not fire message from controller
         Amqp::publish('', json_encode([
             'id' => rand(),
-            'id_user' => '1',
-            'source_label' => 'source_test',
+            'id_user' => $user->getId(),
+            'source_label' => $sourcePoint,
             'date_created' => Carbon::now()
-            ]), ['queue' => 'tracking_service']);
+            ]), ['queue' => env('RABBITMQ_QUEUE')]);
     }
 }

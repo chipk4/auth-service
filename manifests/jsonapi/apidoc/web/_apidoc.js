@@ -12,6 +12,17 @@
  */
 
 /**
+ * @apiDefine RequestHeadersOptional
+ *
+ * @apiHeader [Accept=application/vnd.api+json]
+ *
+ * @apiHeaderExample {json} RequestHeader-Example:
+ * {
+ *   Accept: application/vnd.api+json
+ * }
+ */
+
+/**
  * @apiDefine FileUploadHeader
  *
  * @apiHeaderExample {json} FileUploadHeader-Example:

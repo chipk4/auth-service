@@ -9,8 +9,10 @@
     "illuminate/session":"5.8.*",
     "laravel/lumen-framework": "5.8.*",
     "league/flysystem": "^1.1@dev",
+    "ramsey/uuid": "3.8.*",
     "bschmitt/laravel-amqp":"2.0.7",
-    "socialtechio/slow-storage-emulator": "*"
+    "socialtechio/slow-storage-emulator": "*",
+    "neomerx/json-api":"3.0.5"
   },
   "repositories": [
     {

@@ -9,11 +9,12 @@ $app->run();
 
 const STORAGE_FILE_PATH = __DIR__ . '/../storage/analytics_data';
 
+//TODO::
 //Here we need to write worker app with nice validations, with redilivery and so on
 //run it under supervisor and workers config ets
 while (true)
 {
-    Amqp::consume('tracking_service', function ($message, $resolver) {
+    Amqp::consume(env('RABBITMQ_QUEUE'), function ($message, $resolver) {
 
         $s = new \SocialTech\SlowStorage();
         $s->append(STORAGE_FILE_PATH, $message->body);
