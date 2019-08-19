@@ -2,7 +2,9 @@
 
 namespace App\Jobs;
 
-class ExampleJob extends Job
+use Illuminate\Support\Facades\Log;
+
+class TrackUserBehaviorJob extends Job
 {
     /**
      * Create a new job instance.
@@ -11,7 +13,7 @@ class ExampleJob extends Job
      */
     public function __construct()
     {
-        //
+
     }
 
     /**
@@ -21,6 +23,6 @@ class ExampleJob extends Job
      */
     public function handle()
     {
-        //
+//        Log::debug('An informational message.');
     }
 }
