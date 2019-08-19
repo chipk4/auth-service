@@ -29,6 +29,7 @@ WORKDIR /app
 COPY --from=app_vendor /app ./
 RUN apk add npm
 COPY . ./
+COPY .env.example .env
 RUN npm install -g grunt-cli
 RUN npm install
 RUN grunt apidoc

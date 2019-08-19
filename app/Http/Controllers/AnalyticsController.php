@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Response\Schemas\Api\User\AuthSchema;
 use App\Http\Validators\AnalyticsValidation;
 use Bschmitt\Amqp\Facades\Amqp;
 use Carbon\Carbon;
-use Illuminate\Auth\GenericUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;

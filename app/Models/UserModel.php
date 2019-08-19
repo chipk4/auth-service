@@ -133,7 +133,7 @@ class UserModel implements UserContract, \JsonSerializable
     /**
      * @return string
      */
-    public function getAuthIdentifier()
+    public function getAuthIdentifier(): string
     {
         return $this->getId();
     }

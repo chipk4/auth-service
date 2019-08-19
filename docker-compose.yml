@@ -7,23 +7,23 @@ services:
     networks:
       - mynetwork
 # uncomment lines if you need local files share
-#    volumes:
-#       - ./:/app/:cached
+    volumes:
+      - app:/app
 
   auth-backend:
     build: .
     networks:
       - mynetwork
     volumes:
-       - /www/sites/socialtech:/app #uncomment this line if you need local files share
-#       - ./:/app/:cached # uncomment this line if you need local files share
+#       - /www/sites/socialtech:/app #uncomment this line if you need local files share
+       - app
 
   auth-worker:
     build: .
     networks:
       - mynetwork
-    volumes:
-      - /www/sites/socialtech:/app # comment this line if you need local files share
+#    volumes:
+#      - /www/sites/socialtech:/app # comment this line if you need local files share
     command: ['./bin/hello-worker']
 
   rabbitmq:
@@ -47,8 +47,8 @@ services:
       - mynetwork
 
 volumes:
-#  auth-store:
   rabbitmq-data:
+  app:
 
 networks:
   mynetwork:
