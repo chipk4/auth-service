@@ -1,0 +1,27 @@
+{
+  "name": "socialtech",
+  "version": "1.0.0",
+  "description": "Repository for register &amp; auth users. Also track events to external analytic service. # how to start - install  [docker](https://docs.docker.com/install/)(  [mac](https://docs.docker.com/docker-for-mac/), [windows](https://docs.docker.com/docker-for-windows/) ) with  [docker-compose](https://docs.docker.com/compose/install/) - make sure that **80** port in **127.0.0.1** interface is free - in the project dir run the next commands: ```bash docker-compose up -d open http://localhost ```",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chipk4/auth-service.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chipk4/auth-service/issues"
+  },
+  "homepage": "https://github.com/chipk4/auth-service#readme",
+  "devDependencies": {
+    "grunt": "^1.0.4",
+    "grunt-apidoc": "0.11.0",
+    "load-grunt-tasks": "3.5.2"
+  }
+}
