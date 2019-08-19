@@ -15,10 +15,12 @@
  * @apiDefine RequestHeadersOptional
  *
  * @apiHeader [Accept=application/vnd.api+json]
+ * @apiHeader [Authorization="Bearer YTg3ZWM2NjQtYzJhMC0xMWU5LWI0MjAtMDI0MmFjMTQwMDA0"]
  *
  * @apiHeaderExample {json} RequestHeader-Example:
  * {
  *   Accept: application/vnd.api+json
+ *   Authorization: "Bearer YTg3ZWM2NjQtYzJhMC0xMWU5LWI0MjAtMDI0MmFjMTQwMDA0"
  * }
  */
 
