@@ -22,6 +22,7 @@ $app = new Laravel\Lumen\Application(
 );
 
  $app->configure('filesystems');
+ $app->configure('database');
  $app->withFacades();
 
 // $app->withEloquent();
@@ -47,6 +48,14 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
+$app->singleton(Illuminate\Session\SessionManager::class, function () use ($app) {
+    return $app->loadComponent('session', Illuminate\Session\SessionServiceProvider::class, 'session');
+});
+
+$app->singleton('session.store', function () use ($app) {
+    return $app->loadComponent('session', Illuminate\Session\SessionServiceProvider::class, 'session.store');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -59,11 +68,12 @@ $app->singleton(
 */
 
 // $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
+//    \Illuminate\Session\Middleware\StartSession::class,
 // ]);
 
  $app->routeMiddleware([
      'auth' => App\Http\Middleware\Authenticate::class,
+     'session' => \Illuminate\Session\Middleware\StartSession::class
  ]);
 
 /*
@@ -79,6 +89,8 @@ $app->singleton(
 
 // $app->register(App\Providers\AppServiceProvider::class);
  $app->register(App\Providers\AuthServiceProvider::class);
+ $app->register(VladimirYuldashev\LaravelQueueRabbitMQ\LaravelQueueRabbitMQServiceProvider::class);
+ $app->register(Illuminate\Redis\RedisServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*

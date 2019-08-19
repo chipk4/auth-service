@@ -18,11 +18,13 @@ class AuthController extends BaseController
 {
     protected $validationRules;
     protected $repository;
+    protected $cache;
 
     public function __construct()
     {
         $this->validationRules = new AuthValidator();
         $this->repository = new UserFileRepository();
+        $this->cache = app('redis');
     }
 
     /**
@@ -53,10 +55,13 @@ class AuthController extends BaseController
     public function login(Request $request)
     {
         $userValidatedData = $this->validate($request, $this->validationRules->getUserAuthRules());
-        $user = $this->repository->searchProfileByNickname($userValidatedData['nickName']);
+        $user = $this->repository->searchProfileByUserHash(md5($userValidatedData['nickName']));
         if (Hash::check($userValidatedData['password'], $user->getPassword())) {
             $apiKey = base64_encode(str_random(40));
             $this->repository->attachApiKey($user->getNickName(), $apiKey);
+            $this->cache->hmset('users:profiles:'.$apiKey, [
+                'id' => md5($user->getNickName()),
+            ]);
             return response()->json(['status' => 'success','api_key' => $apiKey]);
         }
 

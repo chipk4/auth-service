@@ -21,12 +21,10 @@ $router->group(['prefix' => 'auth'], function() use ($router) {
 });
 
 //use custom guard
-$router->group(['prefix' => 'user', 'middleware' => 'auth'], function() use ($router) {
-    $router->get('/{id:[0-9]+}', function () {
-        return 'get user'; // return user entity
-    });
+$router->group(['prefix' => 'user', 'middleware' => 'auth:token'], function() use ($router) {
+    $router->get('/{id:[0-9]+}', 'ExampleController@testUser');
 });
 
-$router->group(['prefix' => 'analytic'], function () use ($router) {
-    //track action
+$router->group(['prefix' => 'analytic', 'middleware' => 'session'], function () use ($router) {
+    $router->get('/track', 'AnalyticsController@trackAction');
 });

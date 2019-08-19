@@ -60,6 +60,17 @@ class UserFileRepository implements UserRepositoryInterface
         return null;
     }
 
+    public function searchProfileByUserHash(string $hashNickname): ?UserContract
+    {
+        $path = self::USER_FOLDER . $hashNickname;
+        if ($this->repository->exists($path)) {
+            $data = $this->repository->get($path);
+            return new UserModel(json_decode($data, true));
+        }
+
+        return null;
+    }
+
     public function checkCredentials(string $apiKey)
     {
 

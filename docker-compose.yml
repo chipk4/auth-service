@@ -4,31 +4,51 @@ services:
     build: docker/nginx
     ports:
       - 127.0.0.1:80:80
+    networks:
+      - mynetwork
 # uncomment lines if you need local files share
 #    volumes:
 #       - ./:/app/:cached
 
   auth-backend:
     build: .
+    networks:
+      - mynetwork
     volumes:
        - /www/sites/socialtech:/app #uncomment this line if you need local files share
 #       - ./:/app/:cached # uncomment this line if you need local files share
 
-  auth-worker:
-    build: .
-    volumes:
-       - auth-store:/app/storage # comment this line if you need local files share
+#  auth-worker:
+#    build: .
+#    volumes:
+#       - auth-store:/app/storage # comment this line if you need local files share
 #       - ./:/app/:cached # uncomment this line if you need local files share
-    command: ['./bin/hello-worker']
+#    command: ['./bin/hello-worker']
 
   rabbitmq:
     image: rabbitmq:3.7-management-alpine
     ports:
-      -  127.0.0.1:15672:15672
-      -  127.0.0.1:5672:5672
+      -  15672:15672
+      -  5672:5672
+      -  5671:5671
+    networks:
+      - mynetwork
     volumes:
       - rabbitmq-data:/var/lib/rabbitmq
 
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      - mynetwork
+
 volumes:
-  auth-store:
+#  auth-store:
   rabbitmq-data:
+
+networks:
+  mynetwork:
+    driver: bridge
