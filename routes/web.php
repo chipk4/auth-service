@@ -25,6 +25,6 @@ $router->group(['prefix' => 'user', 'middleware' => 'auth:token'], function() us
     $router->get('/{id:[a-zA-Z]+}', 'ExampleController@testUser');
 });
 
-$router->group(['prefix' => 'analytic', 'middleware' => 'session'], function () use ($router) {
+$router->group(['prefix' => 'analytic', 'middleware' => ['session', 'auth:optional_auth']], function () use ($router) {
     $router->get('/track', 'AnalyticsController@trackAction');
 });

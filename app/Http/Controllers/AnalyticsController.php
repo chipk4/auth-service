@@ -35,22 +35,15 @@ class AnalyticsController extends BaseController
      */
     public function trackAction(Request $request)
     {
-        var_dump('test');
         $userValidatedData = $this->validate($request, $this->validationRules->getPageTrackRules());
         $sourcePoint = Arr::get($userValidatedData, 'source_point');
-        $apiKey = $userValidatedData['api_key'] ?? '';
-        $user = Auth::retrieveByToken('', $apiKey);
-        if (!$user) {
-            $user = new GenericUser([
-                'id' => $request->session()->getId()
-            ]);
-        }
+
         //todo:: use event manager, and do not fire message from controller
         Amqp::publish('', json_encode([
-            'id' => rand(),
-            'id_user' => $user->getId(),
+            'id'           => rand(),
+            'id_user'      => (Auth::guard('optional_auth'))->id(),
             'source_label' => $sourcePoint,
             'date_created' => Carbon::now()
-            ]), ['queue' => env('RABBITMQ_QUEUE')]);
+        ]), ['queue' => env('RABBITMQ_QUEUE')]);
     }
 }

@@ -131,6 +131,14 @@ class UserModel implements UserContract, \JsonSerializable
     }
 
     /**
+     * @return string
+     */
+    public function getAuthIdentifier()
+    {
+        return $this->getId();
+    }
+
+    /**
      * Specify data which should be serialized to JSON
      * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
      */

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Extensions\AccessTokenGuard;
+use App\Extensions\OptionalAuthGuard;
 use App\Extensions\TokenToUserProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
@@ -37,6 +38,14 @@ class AuthServiceProvider extends ServiceProvider
             $request = app('request');
 
             return new AccessTokenGuard($userProvider, $request, $config);
+        });
+
+        Auth::extend('optional_auth', function ($app, $name, array $config) {
+            // automatically build the DI, put it as reference
+            $userProvider = app(TokenToUserProvider::class);
+            $request = app('request');
+
+            return new OptionalAuthGuard($userProvider, $request, $config);
         });
     }
 }
